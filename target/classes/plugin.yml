@@ -1,0 +1,9 @@
+name: MemeFine
+main: com.fobcode.mf.MemeFine
+version: 1.0.0
+commands:
+    fine:
+        usage: /<command>
+        desc: Takes a certain amount of money from a user as punishment.
+        alias: [mf, memefine]
+depend: [Vault]
