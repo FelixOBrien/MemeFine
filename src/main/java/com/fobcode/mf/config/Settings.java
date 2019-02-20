@@ -14,6 +14,7 @@ public class Settings extends SimpleConfig{
 	public static String NOREASON;
 	public static String FINEDMESSAGE;
 	public static String FINESUCCESS;
+	public static String RELOADCONFIG;
 	
 	private void onLoad() {
 
@@ -26,6 +27,7 @@ public class Settings extends SimpleConfig{
 		NOREASON = getString("noreason");
 		FINEDMESSAGE = getString("finedmessage");
 		FINESUCCESS = getString("finesuccess");
+		RELOADCONFIG = getString("reloadconfig");
 	}
 	public static void init() {
 		new Settings("settings.yml").onLoad();

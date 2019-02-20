@@ -5,5 +5,9 @@ commands:
     fine:
         usage: /<command>
         desc: Takes a certain amount of money from a user as punishment.
-        alias: [mf, memefine]
+        aliases: [mf, memefine]
+    mfreload:
+        usage: /<command>
+        desc: Reloads the config to avoid server reload.
+        aliases: [mfree, mfreedoot, mfreeload, motherfuckerreload]
 depend: [Vault]

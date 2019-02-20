@@ -43,6 +43,7 @@ public class MemeFine extends JavaPlugin{
 							for(int i =2; i< args.length; i++) {
 								reason += " " + args[i];
 							}
+							//reason = reason.replaceFirst(" ", "");
 							if(p !=null) {
 								double bal = econ.getBalance(p);
 								if(fine > bal) {
@@ -72,6 +73,16 @@ public class MemeFine extends JavaPlugin{
 
 			return true;
 		}
+		if(cmd.getName().equalsIgnoreCase(("mfreload"))) {
+			if(sender.hasPermission("memefine.reload")) {
+				Settings.init();
+				Common.tell(sender, Settings.RELOADCONFIG);
+				return true;
+			}
+			Common.tell(sender, Settings.NOPERMISSION);
+			return true;
+			
+		}
 		return false;
 	}
 
@@ -90,11 +101,13 @@ public class MemeFine extends JavaPlugin{
 		return econ;
 	}
 	public String replaceConfig(String s, double fine, String p, String reason, String punisher) {
-		s.replaceAll("%amount%", fine+"");
-		s.replaceAll("%player%", p);
-		s.replaceAll("%reason%", reason);
-		s.replaceAll("%punisher%", punisher);
-		s.replaceAll("%units%", econ.currencyNamePlural());
+		
+		s = s.replaceAll("%amount%", fine+"");
+		s = s.replaceAll("%player%", p);
+		s = s.replaceAll("%reason%", reason);
+		s = s.replaceAll("%punisher%", punisher);
+		s = s.replaceAll("%units%", econ.currencyNamePlural());
+		s = s.replaceAll("  ", " ");
 		return s;
 	}
 
