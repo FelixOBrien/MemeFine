@@ -14,31 +14,31 @@ public class Fine implements CommandExecutor{
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 			if(!(sender.hasPermission("memefine.fine"))) {
-				Common.tell(sender, Settings.NOPERMISSION);
+				Common.tell(sender, Settings.noPermission);
 				return true;
 			}
 
 			if(args.length <= 0) {
-				Common.tell(sender, Settings.NOUSER);
+				Common.tell(sender, Settings.noUser);
 				return true;
 			}
 			if(args.length < 2) {
-				Common.tell(sender, Settings.NOFINEAMOUNT);
+				Common.tell(sender, Settings.noFineAmount);
 				return true;
 			}
 			if(args.length < 3) {
-				Common.tell(sender, Settings.NOREASON);
+				Common.tell(sender, Settings.noReason);
 				return true;
 			}
 			Player p = Bukkit.getServer().getPlayerExact(args[0]);
 			if(p == null) {
-				Common.tell(sender, Settings.PLAYERDOESNTEXIST);
+				Common.tell(sender, Settings.playerDoesntExist);
 				return true;
 			}
 			double fine = Double.parseDouble(args[1]);
 			double bal = MemeFine.getEconomy().getBalance(p);
 			if(fine > bal) {
-				Common.tell(sender, Settings.NOTENOUGHMONEY);
+				Common.tell(sender, Settings.notEnoughMoney);
 				return true;
 			}
 			String reason = "";
@@ -46,8 +46,8 @@ public class Fine implements CommandExecutor{
 				reason += " " + args[i];
 			}
 			MemeFine.getEconomy().withdrawPlayer(p, fine);
-			Common.tell(p, replaceConfig(Settings.FINEDMESSAGE, fine, p.getName(), reason, sender.getName()));
-			Common.tell(sender, replaceConfig(Settings.FINESUCCESS, fine, p.getName(), reason, sender.getName()));
+			Common.tell(p, replaceConfig(Settings.finedMessage, fine, p.getName(), reason, sender.getName()));
+			Common.tell(sender, replaceConfig(Settings.fineSuccess, fine, p.getName(), reason, sender.getName()));
 			return true;
 
 

@@ -11,12 +11,12 @@ import com.fobcode.mf.utils.Common;
 public class MFReload implements CommandExecutor{
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 			if(!(sender.hasPermission("memefine.reload"))) {
-				Common.tell(sender, Settings.NOPERMISSION);
+				Common.tell(sender, Settings.noPermission);
 				return true;
 			}
 
 			Settings.init();
-			Common.tell(sender, Settings.RELOADCONFIG);
+			Common.tell(sender, Settings.reloadConfig);
 			return true;
 		
 	

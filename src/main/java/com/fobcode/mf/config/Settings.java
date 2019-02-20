@@ -5,29 +5,29 @@ public class Settings extends SimpleConfig{
 		super(fileName);
 	}
 	
-	public static String NOTENOUGHMONEY;
-	public static String PLAYERDOESNTEXIST;
-	public static String GENERALERROR;
-	public static String NOPERMISSION;
-	public static String NOUSER;
-	public static String NOFINEAMOUNT;
-	public static String NOREASON;
-	public static String FINEDMESSAGE;
-	public static String FINESUCCESS;
-	public static String RELOADCONFIG;
+	public static String notEnoughMoney;
+	public static String playerDoesntExist;
+	public static String generalError;
+	public static String noPermission;
+	public static String noUser;
+	public static String noFineAmount;
+	public static String noReason;
+	public static String finedMessage;
+	public static String fineSuccess;
+	public static String reloadConfig;
 	
 	private void onLoad() {
 
-		NOTENOUGHMONEY = getString("notenoughmoney");
-		PLAYERDOESNTEXIST = getString("playerdoesntexist");
-		GENERALERROR = getString("generalerror");
-		NOPERMISSION = getString("nopermission");
-		NOUSER = getString("nouser");
-		NOFINEAMOUNT = getString("nofineamount");
-		NOREASON = getString("noreason");
-		FINEDMESSAGE = getString("finedmessage");
-		FINESUCCESS = getString("finesuccess");
-		RELOADCONFIG = getString("reloadconfig");
+		notEnoughMoney = getString("notenoughmoney");
+		playerDoesntExist = getString("playerdoesntexist");
+		generalError = getString("generalerror");
+		noPermission = getString("nopermission");
+		noUser = getString("nouser");
+		noFineAmount = getString("nofineamount");
+		noReason = getString("noreason");
+		finedMessage = getString("finedmessage");
+		fineSuccess = getString("finesuccess");
+		reloadConfig = getString("reloadconfig");
 	}
 	public static void init() {
 		new Settings("settings.yml").onLoad();

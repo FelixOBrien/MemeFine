@@ -1,18 +1,11 @@
 package com.fobcode.mf;
 
-import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
-
 import com.fobcode.mf.commands.Fine;
 import com.fobcode.mf.config.Settings;
-import com.fobcode.mf.utils.Common;
-
 import net.milkbowl.vault.economy.Economy;
-import net.milkbowl.vault.economy.EconomyResponse;
+
 
 public class MemeFine extends JavaPlugin{
 	public static Economy econ = null;
