@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.fobcode.mf.config.Settings;
 import com.fobcode.mf.utils.Common;
 
 import net.milkbowl.vault.economy.Economy;
@@ -22,6 +23,7 @@ public class MemeFine extends JavaPlugin{
 			getServer().getPluginManager().disablePlugin(this);
 			return;
 		}
+		Settings.init();
 	}
 	public void onDisable() {
 		instance = null;
@@ -31,12 +33,12 @@ public class MemeFine extends JavaPlugin{
 	}
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("fine")) {
-			if(sender.hasPermission("meme.fine.fine")) {
+			if(sender.hasPermission("memefine.fine")) {
 				if(args.length > 0) {
-					double fine = Double.parseDouble(args[1]);
+					Player p = (Player) Bukkit.getServer().getPlayerExact(args[0]);
 					if(args.length > 1) {
-						Player p = (Player) Bukkit.getServer().getPlayerExact(args[0]);
-						if(args.length >= 2) {
+						double fine = Double.parseDouble(args[1]);
+						if(args.length > 2) {
 							String reason = "";
 							for(int i =2; i< args.length; i++) {
 								reason += " " + args[i];
@@ -44,29 +46,29 @@ public class MemeFine extends JavaPlugin{
 							if(p !=null) {
 								double bal = econ.getBalance(p);
 								if(fine > bal) {
-									Common.tell(sender, "&cYou cannot fine them more than their balance!");
+									Common.tell(sender, Settings.NOTENOUGHMONEY);
 									return true;
 								}
 								econ.withdrawPlayer(p, fine);
-								Common.tell(p, "&cYou have been fined " + fine + " "+ econ.currencyNamePlural()+" for" + reason);
-								Common.tell(sender, "&2You fined " + p.getName() + " " + fine + " "+ econ.currencyNamePlural()+ " for" + reason);
+								Common.tell(p, replaceConfig(Settings.FINEDMESSAGE, fine, p.getName(), reason, sender.getName()));
+								Common.tell(sender, replaceConfig(Settings.FINESUCCESS, fine, p.getName(), reason, sender.getName()));
 								return true;
 							}
-							Common.tell(sender, "&cThat player does not exist or is offline!");
+							Common.tell(sender, Settings.PLAYERDOESNTEXIST);
 
 							return true;
 						}
-						Common.tell(sender, "&cThat player does not exist or is offline!");
+						Common.tell(sender, Settings.NOREASON);
 						return true;
 
 					}
-					Common.tell(sender, "&cYou must provide an amount to fine the player.");
+					Common.tell(sender, Settings.NOFINEAMOUNT);
 					return true;
 				}
-				Common.tell(sender, "&cYou must provide a player to fine");
+				Common.tell(sender, Settings.NOUSER);
 				return true;
 			}
-			Common.tell(sender, "&cYou do not have permission");
+			Common.tell(sender, Settings.NOPERMISSION);
 
 			return true;
 		}
@@ -86,6 +88,14 @@ public class MemeFine extends JavaPlugin{
 	}
 	public static Economy getEconomy() {
 		return econ;
+	}
+	public String replaceConfig(String s, double fine, String p, String reason, String punisher) {
+		s.replaceAll("%amount%", fine+"");
+		s.replaceAll("%player%", p);
+		s.replaceAll("%reason%", reason);
+		s.replaceAll("%punisher%", punisher);
+		s.replaceAll("%units%", econ.currencyNamePlural());
+		return s;
 	}
 
 }
